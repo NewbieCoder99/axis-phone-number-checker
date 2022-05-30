@@ -3,14 +3,28 @@
 @section('contents')
     <div class="container-fluid mt-4">
         <div class="row">
+            <div class="col-md-12 mb-4">
+                <center>
+                    <h2><b>AXIS PHONE NUMBER CHECKER</b></h2>
+                </center>
+            </div>
             <div class="col-md-3">
-                <div class="form-group mt-4">
-                    <input type="file" name="file" id="file" class="form-control">
+                <div id="submitForm">
+                    <div class="form-group mt-4">
+                        <input type="file" name="file" id="file" class="form-control">
+                    </div>
+                    <div class="form-group mt-4">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-success btn-block" id="submitButton" onclick="submitFile()">Upload</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group mt-4">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-success btn-block" id="submitButton" onclick="submitFile()">Upload</button>
-                        <div class="text-wwarning" id="checking-text"></div>
+                <div class="form-group mt-4" id="abortAndContinueElem">
+                    <div class="text-wwarning text-center" id="checking-text"></div>
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-danger btn-block text-white" id="abortButton" onclick="abortProcess()">Pause</button>
+                        <button class="btn btn-success btn-block text-white" id="continueButton" onclick="continueProcess()">Continue</button>
+                        <a href="" class="btn btn-dark btn-block text-white">Stop</a>
                     </div>
                 </div>
             </div>
@@ -30,7 +44,7 @@
                     </div>
                     <div class="col-md-12 mt-4">
                         <center><b>Logs And Response</b></center>
-                        <textarea class="form-control mt-2" id="checkingNumberElement" rows="10" style="resize: none;border:none;background:#eee;color:green;border:1px green solid;" readonly=""></textarea>
+                        <textarea class="form-control mt-2" id="checkingNumberElement" rows="8" style="resize: none;border:none;background:#eee;color:green;border:1px green solid;" readonly=""></textarea>
                     </div>
                 </div>
             </div>
@@ -41,27 +55,44 @@
 @section('scripts')
     <script type="text/javascript">
 
-        function checkingNumber(numbers,position,counter) {
+        var ajaxCall;
+
+        function putFileStorage(data) {
+            window.localStorage.setItem('hash_file', data);
+        }
+
+        function getFileStorage() {
+            return window.localStorage.getItem('hash_file');
+        }
+
+        function checkingNumber(numbers,position,counter,cache_file) {
+
             var checkingText = jQuery('#checking-text');
             var submitButton = jQuery('#submitButton');
             var checkingNumberElement = jQuery('#checkingNumberElement');
             var activeNumber = jQuery('#active_number');
             var inActiveNumber = jQuery('#inactive_number');
             var unknownNumber = jQuery('#unknown_number');
-            jQuery.ajax({
+            var submitForm = jQuery('#submitForm');
+            var abortAndContinueElem = jQuery('#abortAndContinueElem');
+
+            ajaxCall = jQuery.ajax({
                 url : '{{ route('checking-phone-number') }}',
                 method : 'post',
                 dataType: 'json',
-                data : 'phone_number=' + numbers[position],
+                data : 'phone_number=' + numbers[position] + '&cache_file=' + cache_file,
                 headers : {
                     'X-CSRF-TOKEN' : '{{ csrf_token() }}'
                 },
                 beforeSend: function() {
-                    checkingText.html(`${numbers[position]}... ${position}/${counter}\n`);
+                    submitForm.attr('style','display:none;');
+                    abortAndContinueElem.removeAttr('style')
                 },
                 success: function(response) {
 
-                    checkingNumberElement.append(`${numbers[position]} | ${response.statusCode} | ${response.response} | ${position}/${counter}\n`);
+                    checkingText.html(`${numbers[position]}... ${position}/${counter}\n`);
+
+                    checkingNumberElement.append(`${numbers[position]} => ${response.response}\n`);
                     checkingNumberElement.scrollTop(checkingNumberElement[0].scrollHeight);
 
                     if(response.response == 'nomor anda saat ini sudah dalam keadaan aktif') {
@@ -81,14 +112,14 @@
                         unknownNumber.scrollTop(unknownNumber[0].scrollHeight);
                     }
 
-                    if(position == counter) {
+                    if((position + 1) == counter) {
                         checkingText.html(``);
                         submitButton.removeAttr('disabled');
                         return;
                     }
 
                     position++;
-                    checkingNumber(numbers,position,counter);
+                    checkingNumber(numbers,position,counter,cache_file);
                 },
                 error : function(err) {
                     checkingText.html(``);
@@ -117,13 +148,48 @@
                     submitButton.attr('disabled', true);
                 },
                 success: function(response) {
-                    var numbers = response.data;
-                    checkingNumber(numbers, 0, response.count - 1);
+                    var data = response.data;
+                    var numbers = data.phone_numbers;
+                    putFileStorage(data.cache_file);
+                    checkingNumber(numbers, 0, response.count, data.cache_file);
                 },
                 error : function(err) {
                     submitButton.removeAttr('disabled');
                 }
             });
         }
+
+        function abortProcess() {
+            var continueButton = jQuery('#continueButton');
+            var abortButton = jQuery('#abortButton');
+            abortButton.attr('style','display:none;');
+            continueButton.removeAttr('style');
+            ajaxCall.abort();
+        }
+
+        function continueProcess() {
+            var continueButton = jQuery('#continueButton');
+            var abortButton = jQuery('#abortButton');
+            jQuery.ajax({
+                url : '{{ route('continue') }}',
+                method: 'get',
+                dataType : 'json',
+                data : 'file_cache=' + getFileStorage(),
+                beforeSend: function() {
+                    abortButton.removeAttr('style');
+                    continueButton.attr('style','display:none');
+                },
+                success: function(response) {
+                    var data = response.data;
+                    var numbers = data.phone_numbers;
+                    putFileStorage(data.cache_file);
+                    checkingNumber(numbers, 0, data.phone_numbers.length, data.cache_file);
+                }
+            })
+        }
+
+        jQuery('#abortAndContinueElem').attr('style','display:none;');
+        jQuery('#continueButton').attr('style','display:none;');
+
     </script>
 @endsection

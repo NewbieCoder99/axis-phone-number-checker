@@ -17,5 +17,10 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('upload','App\Http\Controllers\UploadController@index')->name('upload-file');
-Route::post('checking-phone-number','App\Http\Controllers\CheckingPhoneNumberController@index')->name('checking-phone-number');
+Route::group(['namespace' => 'App\Http\Controllers'], function() {
+    Route::get('test','TestController@index')->name('test');
+
+    Route::get('continue','ContinueController@index')->name('continue');
+    Route::post('upload','UploadController@index')->name('upload-file');
+    Route::post('checking-phone-number','CheckingPhoneNumberController@index')->name('checking-phone-number');
+});

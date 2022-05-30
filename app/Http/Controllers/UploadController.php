@@ -17,6 +17,7 @@ class UploadController extends Controller
     function index(Request $request)
     {
         try {
+
             $file = $request->file;
 
             $extension = $file->extension();
@@ -28,7 +29,7 @@ class UploadController extends Controller
                 ];
             }
 
-            $fileName = date('ymd').'.xlsx';
+            $fileName = date('ymdhis').'.xlsx';
 
             $file->storeAs('xls', $fileName);
 
@@ -39,8 +40,11 @@ class UploadController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Ok',
-                'data' => $data,
-                'count' => count($data)
+                'count' => count($data['phone_numbers']),
+                'data' => [
+                    'phone_numbers' => $data['phone_numbers'],
+                    'cache_file' => $data['cache_file']
+                ],
             ], 200);
 
         } catch(\Exception $e) {

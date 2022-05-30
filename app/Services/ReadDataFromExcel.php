@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\CacheFile;
+
 class ReadDataFromExcel
 {
 	public function read($file)
@@ -37,6 +39,17 @@ class ReadDataFromExcel
             $n++;
         }
 
-        return $phoneNumberItems;
+        $cacheName = md5($file);
+        CacheFile::create([
+            'cache_name' => $cacheName,
+            'cache_data' => json_encode($phoneNumberItems)
+        ]);
+
+        @unlink($file);
+
+        return [
+            'phone_numbers' => $phoneNumberItems,
+            'cache_file' => $cacheName
+        ];
 	}
 }
