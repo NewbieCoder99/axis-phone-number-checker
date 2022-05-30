@@ -1,12 +1,12 @@
 @extends('dashboard.layout')
 
 @section('pageName')
-    <h1 class="mb-0">{{ @$pageName }}</h1>
+    <h1 class="mb-0 text-white">{{ @$pageName }}</h1>
     <div class="small"></div>
 @endsection
 
 @section('contents')
-    <div class="row">
+    <div class="card mb-4">
         <div class="col-md-3">
             <div id="submitForm">
                 <div class="form-group mt-4">
@@ -14,17 +14,25 @@
                 </div>
                 <div class="form-group mt-4">
                     <div class="d-grid gap-2">
-                        <button class="btn btn-success btn-block" id="submitButton" onclick="submitFile()">Upload</button>
+                        <button class="btn btn-primary btn-block" id="submitButton" onclick="submitFile()">
+                            <i class="fa fa-upload"></i>&nbsp;Upload
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="form-group mt-4" id="abortAndContinueElem">
-                <div class="text-wwarning text-center" id="checking-text"></div>
-                <div class="d-grid gap-2 mt-4">
-                    <button class="btn btn-danger btn-block text-white" id="abortButton" onclick="abortProcess()">Pause</button>
-                    <button class="btn btn-success btn-block text-white" id="continueButton" onclick="continueProcess()">Continue</button>
-                    <a href="" class="btn btn-dark btn-block text-white">Stop</a>
-                </div>
+            <div class="form-group mt-4 text-center" id="abortAndContinueElem">
+                <div class="text-wwarning mb-2" id="checking-text"></div>
+                {{-- <div class="d-grid gap-2 mt-4"> --}}
+                    <button class="btn btn-danger text-white" id="abortButton" onclick="abortProcess()">
+                        <i class="fa fa-pause"></i>&nbsp;Pause
+                    </button>
+                    <button class="btn btn-success btn-block text-white" id="continueButton" onclick="continueProcess()">
+                        <i class="fa fa-play"></i>&nbsp;Continue
+                    </button>
+                    <a href="" class="btn btn-dark btn-block text-white">
+                        <i class="fa fa-stop"></i>&nbsp;Stop
+                    </a>
+                {{-- </div> --}}
             </div>
         </div>
         <div class="col-md-12 mt-4 mb-4">

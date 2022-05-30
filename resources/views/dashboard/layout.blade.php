@@ -47,19 +47,25 @@
 
             <div id="layoutSidenav_content">
                 <main>
-                    {{-- container-xl px-4 mt-5 --}}
-                    <div class="container-xl px-4 mt-5">
-                        {{-- d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4 --}}
-                        <div class="d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4">
-                            <div class="me-4 mb-3 mb-sm-0">
-                                @yield('pageName')
+
+                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+                        <div class="container-xl px-4">
+                            <div class="page-header-content pt-4">
+                                <div class="row align-items-center justify-content-between">
+                                    <div class="col-auto mt-4">
+                                        @yield('pageName')
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        {{-- ./ d-flex justify-content-between align-items-sm-center flex-column flex-sm-row mb-4 --}}
+                    </header>
 
-                        @yield('contents')
+                    <div class="container-xl px-4 mt-n10">
+                        <div class="row">
+                            @yield('contents')
+                        </div>
                     </div>
-                    {{-- ./ container-xl px-4 mt-5 --}}
+
                 </main>
             </div>
 

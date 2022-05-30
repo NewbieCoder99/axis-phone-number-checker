@@ -20,9 +20,13 @@
     <div class="sidenav-menu-heading">Navigation</div>
 
     <a class="nav-link @if(request()->segment(2) == '') active @endif" href="{{ route('dashboard') }}">
+        <div class="nav-link-icon"><i class="fa fa-home"></i></div> Dashboard
+    </a>
+
+    <a class="nav-link @if(request()->segment(2) == 'phone-numbers') active @endif" href="{{ route('dashboard') }}">
         <div class="nav-link-icon">
-            <i class="fa fa-home"></i>
-        </div> Dashboard
+            <i class="fa fa-mobile"></i>
+        </div> Phone Numbers
     </a>
 
 </div>
