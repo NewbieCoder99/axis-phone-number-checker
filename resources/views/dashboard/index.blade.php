@@ -6,52 +6,56 @@
 @endsection
 
 @section('contents')
-    <div class="card mb-4">
-        <div class="col-md-3">
-            <div id="submitForm">
-                <div class="form-group mt-4">
-                    <input type="file" name="file" id="file" class="form-control">
-                </div>
-                <div class="form-group mt-4">
-                    <div class="d-grid gap-2">
-                        <button class="btn btn-primary btn-block" id="submitButton" onclick="submitFile()">
-                            <i class="fa fa-upload"></i>&nbsp;Upload
-                        </button>
+    <div class="col-md-12">
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="col-md-3">
+                    <div id="submitForm">
+                        <div class="form-group mt-4">
+                            <input type="file" name="file" id="file" class="form-control">
+                        </div>
+                        <div class="form-group mt-4">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary btn-block" id="submitButton" onclick="submitFile()">
+                                    <i class="fa fa-upload"></i>&nbsp;Upload
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mt-4 text-center" id="abortAndContinueElem">
+                        <div class="text-wwarning mb-2" id="checking-text"></div>
+                        {{-- <div class="d-grid gap-2 mt-4"> --}}
+                            <button class="btn btn-danger text-white" id="abortButton" onclick="abortProcess()">
+                                <i class="fa fa-pause"></i>&nbsp;Pause
+                            </button>
+                            <button class="btn btn-success btn-block text-white" id="continueButton" onclick="continueProcess()">
+                                <i class="fa fa-play"></i>&nbsp;Continue
+                            </button>
+                            <a href="" class="btn btn-dark btn-block text-white">
+                                <i class="fa fa-stop"></i>&nbsp;Stop
+                            </a>
+                        {{-- </div> --}}
                     </div>
                 </div>
-            </div>
-            <div class="form-group mt-4 text-center" id="abortAndContinueElem">
-                <div class="text-wwarning mb-2" id="checking-text"></div>
-                {{-- <div class="d-grid gap-2 mt-4"> --}}
-                    <button class="btn btn-danger text-white" id="abortButton" onclick="abortProcess()">
-                        <i class="fa fa-pause"></i>&nbsp;Pause
-                    </button>
-                    <button class="btn btn-success btn-block text-white" id="continueButton" onclick="continueProcess()">
-                        <i class="fa fa-play"></i>&nbsp;Continue
-                    </button>
-                    <a href="" class="btn btn-dark btn-block text-white">
-                        <i class="fa fa-stop"></i>&nbsp;Stop
-                    </a>
-                {{-- </div> --}}
-            </div>
-        </div>
-        <div class="col-md-12 mt-4 mb-4">
-            <div class="row">
-                <div class="col-md-4">
-                    <center><b>Active Number</b></center>
-                    <textarea class="form-control mt-2" id="active_number" rows="10" readonly=""></textarea>
-                </div>
-                <div class="col-md-4">
-                    <center><b>Inactive Number</b></center>
-                    <textarea class="form-control mt-2" id="inactive_number" rows="10" readonly=""></textarea>
-                </div>
-                <div class="col-md-4">
-                    <center><b>Unknown Number</b></center>
-                    <textarea class="form-control mt-2" id="unknown_number" rows="10" readonly=""></textarea>
-                </div>
-                <div class="col-md-12 mt-4">
-                    <center><b>Logs And Response</b></center>
-                    <textarea class="form-control mt-2" id="checkingNumberElement" rows="8" readonly=""></textarea>
+                <div class="col-md-12 mt-4 mb-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <center><b>Active Number</b></center>
+                            <textarea class="form-control mt-2" id="active_number" rows="10" readonly=""></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <center><b>Inactive Number</b></center>
+                            <textarea class="form-control mt-2" id="inactive_number" rows="10" readonly=""></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <center><b>Unknown Number</b></center>
+                            <textarea class="form-control mt-2" id="unknown_number" rows="10" readonly=""></textarea>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <center><b>Logs And Response</b></center>
+                            <textarea class="form-control mt-2" id="checkingNumberElement" rows="8" readonly=""></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

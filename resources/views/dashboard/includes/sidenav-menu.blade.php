@@ -23,7 +23,7 @@
         <div class="nav-link-icon"><i class="fa fa-home"></i></div> Dashboard
     </a>
 
-    <a class="nav-link @if(request()->segment(2) == 'phone-numbers') active @endif" href="{{ route('dashboard') }}">
+    <a class="nav-link @if(request()->segment(2) == 'phone-numbers') active @endif" href="{{ route('phone-numbers.index') }}">
         <div class="nav-link-icon">
             <i class="fa fa-mobile"></i>
         </div> Phone Numbers

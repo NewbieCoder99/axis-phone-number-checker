@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('name', 100)->nullable();
             $table->string('nik', 16)->nullable();
             $table->string('email', 100)->nullable();
+            $table->text('status_message')->nullable();
+            $table->enum('status', ['active','inactive','unknown'])->nullable();
             $table->date('expired_date')->nullable();
             $table->timestamps();
 
