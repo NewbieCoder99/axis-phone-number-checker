@@ -14,13 +14,22 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return redirect('login');
 });
 
-Route::group(['namespace' => 'App\Http\Controllers'], function() {
-    Route::get('test','TestController@index')->name('test');
+Route::group([
+    'middleware' => ['auth'],
+    'namespace' => 'App\Http\Controllers\Dashboard',
+    'prefix' => 'dashboard'
+], function() {
 
+    Route::get('/','IndexController@index')->name('dashboard');
+
+    Route::get('test','TestController@index')->name('test');
     Route::get('continue','ContinueController@index')->name('continue');
     Route::post('upload','UploadController@index')->name('upload-file');
     Route::post('checking-phone-number','CheckingPhoneNumberController@index')->name('checking-phone-number');
+
 });
+
+require __DIR__.'/auth.php';

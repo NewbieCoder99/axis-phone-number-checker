@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Services\CheckingActivationNumberService;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\CacheFile;
 
 class CheckingPhoneNumberController extends Controller
 {
-
     public function __construct()
     {
         $this->checking = new CheckingActivationNumberService;

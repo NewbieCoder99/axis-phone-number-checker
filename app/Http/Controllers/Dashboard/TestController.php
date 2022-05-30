@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Services\SaveAndGetCache;
+use Illuminate\Http\Request;
 
 class TestController extends Controller
 {
