@@ -173,6 +173,10 @@
             filterTable();
         }
 
+        function exportData() {
+            window.location = '{{ route('export-phone-number') }}?' + jQuery('.formFilter').serialize();
+        }
+
         filterTable();
     </script>
 @endsection

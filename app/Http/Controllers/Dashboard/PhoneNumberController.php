@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\PhoneNumberService;
+use App\Exports\PhoneNumberExport;
 
 class PhoneNumberController extends Controller
 {
@@ -137,5 +138,12 @@ class PhoneNumberController extends Controller
     public function destroy($id)
     {
         return $this->apiResponse($this->phoneNumber->destroy($id));
+    }
+
+    public function export(Request $request)
+    {
+        return (
+            new PhoneNumberExport($this->phoneNumber->all($request))
+        )->download('excel-'. time() .'.xlsx');
     }
 }

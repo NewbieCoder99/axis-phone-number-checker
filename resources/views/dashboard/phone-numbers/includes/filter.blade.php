@@ -71,6 +71,9 @@
 						<button type="button" onclick="clearForm()" class="btn btn-sm mb-3 btn-primary">
 							<i class="fa fa-close"></i>&nbsp;Clear
 						</button>
+						<button type="button" onclick="exportData()" class="btn btn-sm mb-3 btn-primary">
+							<i class="fa fa-download"></i>&nbsp;Export
+						</button>
 					</center>
 				</div>
 

@@ -14,6 +14,7 @@ Route::group([
 
     Route::get('/','IndexController@index')->name('dashboard');
 
+    Route::get('phone-numbers/export','PhoneNumberController@export')->name('export-phone-number');
     Route::resource('phone-numbers','PhoneNumberController');
 
     Route::get('continue','ContinueController@index')->name('continue');
