@@ -19,4 +19,14 @@ class PhoneNumber extends Model
         'status',
         'expired_date'
     ];
+
+    /**
+    * The attributes that should be cast.
+    *
+    * @var array
+    */
+    protected $casts = [
+        'created_at' => 'datetime:M d, Y H:i',
+        'expired_date' => 'datetime:M d, Y',
+    ];
 }

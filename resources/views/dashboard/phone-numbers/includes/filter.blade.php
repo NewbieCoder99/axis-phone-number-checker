@@ -36,7 +36,7 @@
 
 						<div class="col-md-3 mb-3">
 							<div class="form-group">
-								<label class="form-control-label text-sm" for="email">Status</label>
+								<label class="form-control-label text-sm" for="status">Status</label>
 								<select name="status" id="status" class="form-control form-control-sm" style="height:33px;">
 									<option value="">- Select Status -</option>
 									<option value="active">Active</option>
@@ -50,6 +50,13 @@
 							<div class="form-group">
 								<label class="form-control-label text-sm" for="expired_date">Expired Date</label>
 								<input type="date" name="expired_date" id="expired_date" class="form-control form-control-sm" placeholder="Expired Date">
+							</div>
+						</div>
+
+						<div class="col-md-3 mb-3">
+							<div class="form-group">
+								<label class="form-control-label text-sm" for="created_at">Created Date</label>
+								<input type="date" name="created_at" id="created_at" class="form-control form-control-sm" placeholder="Created Date">
 							</div>
 						</div>
 

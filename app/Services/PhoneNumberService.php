@@ -52,4 +52,45 @@ class PhoneNumberService
         return $data->latest()->skip($request['start'])->take($request['length'])->get();
 	}
 
+	public function find($id)
+	{
+		return $this->model()->find($id);
+	}
+
+	public function update($request, $id)
+	{
+		$data = $this->find($id);
+		if($data) {
+			$data->update([
+				'name' => $request->name,
+				'email' => $request->email,
+				'nik' => $request->nik,
+				'number' => $request->number,
+				'status' => $request->status,
+				'expired_date' => $request->expired_date,
+			]);
+		}
+
+		return [
+			'error' => false,
+			'message' => 'Data has been updated.',
+			'data' => $data
+		];
+	}
+
+	public function destroy($id)
+	{
+		$data = $this->find($id);
+
+		if($data) {
+			$data->delete();
+		}
+
+		return [
+			'error' => false,
+			'message' => 'Data has been deleted.',
+			'data' => []
+		];
+	}
+
 }

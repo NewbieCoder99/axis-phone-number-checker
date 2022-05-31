@@ -74,6 +74,8 @@
                 </main>
             </div>
 
+            @include('includes.modal')
+
         </div>
         {{-- ./ layoutSidenav --}}
 
@@ -82,9 +84,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js" crossorigin="anonymous"></script>
         </script><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.12.1/b-2.2.3/datatables.min.js"></script>
+        <script src="{{ asset('js/dashboard/scripts.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/bundle.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('dashboard/js/scripts.js') }}"></script>
-        <script src="{{ asset('dashboard/js/litepicker.js') }}"></script>
+        <script src="{{ asset('js/dashboard//litepicker.js') }}"></script>
+
+        @include('includes.js')
 
         @yield('scripts')
 

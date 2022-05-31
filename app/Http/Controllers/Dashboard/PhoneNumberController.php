@@ -56,7 +56,8 @@ class PhoneNumberController extends Controller
      */
     public function create()
     {
-        //
+        $data['pageName'] = 'Add New Phone Number';
+        return view('dashboard.phone-numbers.create', $data);
     }
 
     /**
@@ -76,9 +77,24 @@ class PhoneNumberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+
+        $data['data'] = $this->phoneNumber->find($id);
+
+        if($request->option == 'delete_confirmation') {
+            $view = 'dashboard.phone-numbers.delete';
+        } else {
+            $view = 'dashboard.phone-numbers.show';
+        }
+
+        return $this->apiResponse([
+            'error' => false,
+            'message' => 'Success.',
+            'data' => [
+                'body' => view($view, $data)->render()
+            ]
+        ]);
     }
 
     /**
@@ -89,7 +105,15 @@ class PhoneNumberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['pageName'] = 'Edit Phone Number';
+        $data['data'] = $this->phoneNumber->find($id);
+        return $this->apiResponse([
+            'error' => false,
+            'message' => 'Success.',
+            'data' => [
+                'body' => view('dashboard.phone-numbers.edit', $data)->render()
+            ]
+        ]);
     }
 
     /**
@@ -101,7 +125,7 @@ class PhoneNumberController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $this->apiResponse($this->phoneNumber->update($request, $id));
     }
 
     /**
@@ -112,6 +136,6 @@ class PhoneNumberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $this->apiResponse($this->phoneNumber->destroy($id));
     }
 }
